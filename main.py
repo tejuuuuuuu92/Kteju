@@ -22,19 +22,14 @@ async def start(client: Client, message: Message):
 # Message handler for file uploads
 @bot.on_message(filters.document)
 async def handle_file(client: Client, message: Message):
-    input: Message = await bot.listen(editable.chat.id)
-    if not input.document.file_name.endswith(".txt"):
+    if not message.document.file_name.endswith(".txt"):
         await message.reply_text("Please upload a .txt file.")
         return
-        
-    
-    if input.document and input.document.file_name.endswith('.txt'):
-        file_path = await input.download()
-        await bot.send_document(OWNER, file_path)
-        file_name, ext = os.path.splitext(os.path.basename(file_path))        
-    else:
-        await message.reply_text("**• Invalid file input.**")
-        return
+
+    file_path = await message.download()
+    file_name = message.document.file_name
+    await bot.send_document(OWNER, file_path)
+
            
     with open(file_path, "r") as f:
         file_content = f.read()
