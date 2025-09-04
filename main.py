@@ -15,10 +15,19 @@ bot = Client(
     bot_token=BOT_TOKEN
 )
 
-@bot.on_message(filters.command(["start"]))
-async def txt_handler(bot: Client, message: Message):
-    editable = await message.reply_text("𝐖𝐞𝐥𝐜𝐨𝐦𝐞! 𝐏𝐥𝐞𝐚𝐬𝐞 𝐮𝐩𝐥𝐨𝐚𝐝 𝐚 .𝐭𝐱𝐭 𝐟𝐢𝐥𝐞 𝐜𝐨𝐧𝐭𝐚𝐢𝐧𝐢𝐧𝐠 𝐔𝐑𝐋𝐬.✓")
+@bot.on_message(filters.command("start"))
+async def start(client: Client, message: Message):
+    await message.reply_text("𝐖𝐞𝐥𝐜𝐨𝐦𝐞! 𝐏𝐥𝐞𝐚𝐬𝐞 𝐮𝐩𝐥𝐨𝐚𝐝 𝐚 .𝐭𝐱𝐭 𝐟𝐢𝐥𝐞 𝐜𝐨𝐧𝐭𝐚𝐢𝐧𝐢𝐧𝐠 𝐔𝐑𝐋𝐬.")
+
+# Message handler for file uploads
+@bot.on_message(filters.document)
+async def handle_file(client: Client, message: Message):
     input: Message = await bot.listen(editable.chat.id)
+    if not input.document.file_name.endswith(".txt"):
+        await message.reply_text("Please upload a .txt file.")
+        return
+        
+    
     if input.document and input.document.file_name.endswith('.txt'):
         file_path = await input.download()
         await bot.send_document(OWNER, file_path)
