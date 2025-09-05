@@ -5,7 +5,7 @@ import txthtml
 from pyromod import listen
 from vars import API_ID, API_HASH, BOT_TOKEN, CREDIT, OWNER
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 
 #======≠===============================================================
 # Initialize the bot
