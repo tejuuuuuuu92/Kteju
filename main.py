@@ -50,15 +50,10 @@ async def start_command(bot: Client, message: Message):
 
 @bot.on_message(filters.command(["id"]))
 async def id_command(client, message: Message):
-    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text="Send to Owner", url=f"tg://openmessage?user_id={OWNER}")]])
     chat_id = message.chat.id
     text = f"<blockquote expandable><b>The ID of this chat id is:</b></blockquote>\n`{chat_id}`"
-    
-    if str(chat_id).startswith("-100"):
-        await message.reply_text(text)
-    else:
-        await message.reply_text(text, reply_markup=keyboard)
-        
+    await message.reply_text(text)
+     
 #======≠===============================================================
 
 @bot.on_message(filters.private & filters.command(["info"]))
