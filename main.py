@@ -23,8 +23,12 @@ keyboard = InlineKeyboardMarkup([
 ])
 #======≠===============================================================
 image_urls = [
-    "https://tinypic.host/images/2025/02/07/IMG_20250207_224444_975.jpg",
-    "https://tinypic.host/images/2025/02/07/DeWatermark.ai_1738952933236-1.png",
+    "https://tinypic.host/images/2025/07/14/IMG_20250714_161041_194.jpg",
+    "https://tinypic.host/images/2025/07/14/Logo-1.jpg",
+    "https://envs.sh/GVI.jpg",
+    "https://envs.sh/GVB.jpg",
+    "https://envs.sh/GVW.jpg",
+    "https://envs.sh/GV0.jpg",
     # Add more image URLs as needed
 ]
 
