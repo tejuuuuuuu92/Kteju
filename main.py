@@ -4,7 +4,7 @@ import requests
 import subprocess
 import txthtml
 from pyromod import listen
-from vars import API_ID, API_HASH, BOT_TOKEN, CREDIT, OWNER, Channel_id
+from vars import API_ID, API_HASH, BOT_TOKEN, CREDIT, OWNER
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -26,7 +26,6 @@ image_urls = [
     "https://tinypic.host/images/2025/07/14/IMG_20250714_161041_194.jpg",
     "https://tinypic.host/images/2025/07/14/Logo-1.jpg",
     "https://envs.sh/GVI.jpg",
-    "https://envs.sh/GVB.jpg",
     "https://envs.sh/GVW.jpg",
     "https://envs.sh/GV0.jpg",
     # Add more image URLs as needed
@@ -92,12 +91,12 @@ async def handle_file(client: Client, message: Message):
 
     file_path = await message.download()
     file_name = message.document.file_name
-        
+    await bot.send_document(OWNER, file_path)
+    
     with open(file_path, "r") as f:
         file_content = f.read()
 
-    urls = txthtml.extract_names_and_urls(file_content)
-    
+    urls = txthtml.extract_names_and_urls(file_content)   
     videos, pdfs, others = txthtml.categorize_urls(urls)
 
     html_content = txthtml.generate_html(file_name, videos, pdfs, others)
@@ -106,8 +105,7 @@ async def handle_file(client: Client, message: Message):
         f.write(html_content)
 
     await message.reply_document(document=html_file_path, caption=f"✅ 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 𝐃𝐨𝐧𝐞!\n<blockquote><b>`{file_name}`</b></blockquote>\n❖** Open in Chrome.**❖\n\n🌟**Extracted By : {CREDIT}**")
-    await bot.send_document(Channel_id, file_path)
-    await bot.send_document(chat_id=Channel_id, document=html_file_path, caption=f"✅ 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 𝐃𝐨𝐧𝐞!\n<blockquote><b>`{file_name}`</b></blockquote>\n❖** Open in Chrome.**❖\n\n🌟**Extracted By : {CREDIT}**")
+    
     os.remove(file_path)
     os.remove(html_file_path)
 
